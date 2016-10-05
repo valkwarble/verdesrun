@@ -126,6 +126,8 @@ var Database = function() {
     // REad the file liek in re$ci@^-1tion
     fs.readFile(TWEETFILENAME, function read(err, data) {
         if (err) {
+            json_flat = '{"root":{"tweets":[]}}';
+            db = JSON.parse(json_flat);
             throw err;
         }
         content = data;
