@@ -9,6 +9,17 @@ var app = express();//make express object
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));//define where files served to user are
 
+app.set('port', (process.env.PORT || 5000));
+
+//For avoidong Heroku $PORT error
+app.get('/', function(request, response) {
+    var result = 'App is running'
+    response.send(result);
+}).listen(app.get('port'), function() {
+    console.log('App is running, server is listening on port ', app.get('port'));
+});
+
+
 var Database = function() {
   var that = Object.create(Database.prototype);
 
@@ -128,7 +139,3 @@ app.post("/delete", function(req, res) {
 });
 
 
-
-app.listen(process.env.port, function() {
-  console.log("Listening on port process.env.port");
-});
