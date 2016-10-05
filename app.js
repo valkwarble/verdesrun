@@ -101,8 +101,10 @@ var Database = function() {
 //var database = Database();
 console.log(database);
 
+app.set('views', __dirname + '/views');
+
 app.get('/', function(request, response) {
-  response.render('<div></div>');
+  response.render('pages/index');
 });
 //add a new tweet to the database
 app.post("/tweet", function(req, res) {
