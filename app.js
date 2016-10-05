@@ -98,7 +98,7 @@ var Database = function() {
   return that;
 };
 
-var database = Database();
+//var database = Database();
 console.log(database);
 //add a new tweet to the database
 app.post("/tweet", function(req, res) {
