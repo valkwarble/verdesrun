@@ -13,7 +13,7 @@ var Database = function() {
   var db;
   function processFile() {
 
-      json_flat = ((typeof content) != "string")? {"root":{"tweets":[]}}: content; //  flat json
+      json_flat = ((typeof content) != "string")? '{"root":{"tweets":[]}}': content; //  flat json
       db = JSON.parse(json_flat); //convert to an object
 
   };
