@@ -38,10 +38,14 @@ var Database = function() {
     var content;
     var db;
     function processFile() {
-        json_flat = content; //  flat json
-        db = JSON.parse(json_flat); //convert to an object
+      if(((typeof content) != "string")){
+        json_flat = '{"root":{"tweets":[]}}';
+      }else{
+        json_flat = content;
+      }
+      db = JSON.parse(json_flat); //convert to an object
 
-    };
+  };
     // REad the file liek in re$ci@^-1tion
     fs.readFile(TWEETFILENAME, function read(err, data) {
         if (err) {
@@ -80,10 +84,14 @@ var Database = function() {
     var content;
     var db;
     function processFile() {
-        json_flat = content; //  flat json
-        db = JSON.parse(json_flat); //convert to an object
+      if(((typeof content) != "string")){
+        json_flat = '{"root":{"tweets":[]}}';
+      }else{
+        json_flat = content;
+      }
+      db = JSON.parse(json_flat); //convert to an object
 
-    };
+  };
     // REad the file liek in re$ci@^-1tion
     fs.readFile(TWEETFILENAME, function read(err, data) {
         if (err) {
@@ -107,10 +115,14 @@ var Database = function() {
     var content;
     var db;
     function processFile() {
-        json_flat = content; //  flat json
-        db = JSON.parse(json_flat); //convert to an object
+      if(((typeof content) != "string")){
+        json_flat = '{"root":{"tweets":[]}}';
+      }else{
+        json_flat = content;
+      }
+      db = JSON.parse(json_flat); //convert to an object
 
-    };
+  };
     // REad the file liek in re$ci@^-1tion
     fs.readFile(TWEETFILENAME, function read(err, data) {
         if (err) {
