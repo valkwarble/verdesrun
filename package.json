@@ -1,0 +1,18 @@
+{
+  "name": "Fritter",
+  "version": "1.0.0",
+  "engines": {
+    "node": "5.9.1"
+  },
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "chance": "^1.0.4",
+    "express": "^4.14.0",
+    "express-session": "^1.14.1",
+    "hashmap": "^2.0.6"
+  }
+}
