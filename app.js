@@ -100,6 +100,10 @@ var Database = function() {
 
 //var database = Database();
 console.log(database);
+
+app.get('/', function(request, response) {
+  response.render('<div></div>');
+});
 //add a new tweet to the database
 app.post("/tweet", function(req, res) {
   short = database.addTweet(req.body.username.replace(/\+/g, ' '), req.body.tweet, req.body.tweetid);
