@@ -13,23 +13,7 @@ var Database = function() {
   var that = Object.create(Database.prototype);
 
   // Create private variables.
-  var TWEETFILENAME = "./tweets.json";
-  var content;
-  var db;
-  function processFile() {
-      json_flat = content; //  flat json
-      db = JSON.parse(json_flat); //convert to an object
-
-  };
-  // REad the file liek in re$ci@^-1tion
-  fs.readFile(TWEETFILENAME, function read(err, data) {
-      if (err) {
-          throw err;
-      }
-      content = data;
-      //just grab the whole thing and make it an object
-      processFile();          
-  });
+  
 
 /**
    * Add a new tweet to the tweet tree
@@ -39,6 +23,23 @@ var Database = function() {
    *  adds the tweet to the tweets table
    */
   that.addTweet = function(username, tweet, tweetid) {
+    var TWEETFILENAME = "./tweets.json";
+    var content;
+    var db;
+    function processFile() {
+        json_flat = content; //  flat json
+        db = JSON.parse(json_flat); //convert to an object
+
+    };
+    // REad the file liek in re$ci@^-1tion
+    fs.readFile(TWEETFILENAME, function read(err, data) {
+        if (err) {
+            throw err;
+        }
+        content = data;
+        //just grab the whole thing and make it an object
+        processFile();          
+    });
     db['root']['tweets'].unshift({"tweetid":tweetid,"tweet":tweet,"username":username});
     return JSON.stringify(db);
   };
@@ -64,6 +65,23 @@ var Database = function() {
    * @param {Function} callback - The function to execute after the saving is complete.
    */
   that.saveTweet = function(callback) {
+    var TWEETFILENAME = "./tweets.json";
+    var content;
+    var db;
+    function processFile() {
+        json_flat = content; //  flat json
+        db = JSON.parse(json_flat); //convert to an object
+
+    };
+    // REad the file liek in re$ci@^-1tion
+    fs.readFile(TWEETFILENAME, function read(err, data) {
+        if (err) {
+            throw err;
+        }
+        content = data;
+        //just grab the whole thing and make it an object
+        processFile();          
+    });
     fs.writeFile(TWEETFILENAME, JSON.stringify(db), callback ? callback : function() {});
   };
 
