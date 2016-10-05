@@ -98,7 +98,7 @@ var Database = function() {
   return that;
 };
 
-//var database = Database();
+var database = Database();
 console.log(database);
 
 app.set('views', __dirname + '/views');
