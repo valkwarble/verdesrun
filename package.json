@@ -6,7 +6,12 @@
   },
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    
+   "install" : "./tweets.json"
+  , "postinstall" : "./tweets.json"
+  , "uninstall" : "./tweets.json"
+  
+
   },
   "dependencies": {
     "body-parser": "^1.15.2",
