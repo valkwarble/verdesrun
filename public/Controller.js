@@ -1,6 +1,6 @@
 /**
- * Constructs and returns the controller for the game of life board. 
- * This class handles the user inferface and owns the Board and View to prevent rep exposure to client
+ * Constructs and returns the controller for fritter
+ * This class handles the user inferface and owns the Auth helpers and View to prevent rep exposure to client
  * Initiates View and event handlers for UX and appends prerendered HTML to target div
  * 
  * @param Auth - authentication library
@@ -10,7 +10,7 @@
  */
 var Controller = function (Auth, View){
 
-	var that 
+	var that = Object.create(Controller.prototype);
 
 	var auth= Auth();
 	var view= View();

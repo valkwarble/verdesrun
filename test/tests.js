@@ -6,81 +6,34 @@
   var to = chai.to;
   var equal =chai.equal;
 
-  describe("Board", function() { 
+  describe("Auth", function() { 
 
-    describe("neighbors", function(){
+    describe("getQueryVariable", function(){
 
-      it("should return an array of 0s representing that each cells neighbors are all dead ", function(){
-        var board = Board(10,10);
-        board.initBoard();
-        var results = board.neighbors();
-        var answer = Array(100).fill(0); 
+      it("should return false since no variable is set on this route", function(){
+        var auth = Auth();
+        var results = auth.getQueryVariable("username");
+        var answer = false; 
         expect(results).to.deep.equal(answer);
       })
 
 
     });
 
-    describe("breedcell", function(){
+    describe("guid ", function(){
 
-      it("should set the value of the cell at 0,0 to 1 signifying it is now alive", function(){
-        var board = Board(10,10);
-        board.initBoard();
-        board.breedCell(0,0);
-        var results = board.board[0].value
-        var answer = 1; 
+      it("should return no GUID matches in 10000 trials since GUID must be unique", function(){
+        var auth = Auth();
+        var check = auth.guid();
+        var trythis= Array(1000).fill(1);
+        var results = trythis.map(function(each){return each==check?true:false});
+        var answer = trythis.map(function(){return false}); 
         expect(results).to.deep.equal(answer);
       })
-
-
-    });
-
-    describe("updateModel", function(){
-
-      it("should kill cells that do not have enough neighbors according to conways rules: test cell alive no neighbors dies", function(){
-        var board = Board(10,10);
-        board.initBoard();
-        board.breedCell(0,0);
-        board.updateModel();
-        var results = board.board[0].value
-        var answer = 0; 
-        expect(results).to.deep.equal(answer);
-      })
-
-      it("should kill cells that do not have enough neighbors according to conways rules: test cell alive 2 neighbors lives", function(){
-        var board = Board(10,10);
-        board.initBoard();
-        board.breedCell(0,0);
-        board.breedCell(1,0);
-        board.breedCell(0,1);
-        board.updateModel();
-        var results = board.board[0].value
-        var answer = 1; 
-        expect(results).to.deep.equal(answer);
-      })
-       it("should kill cells that do not have enough neighbors according to conways rules: test cell alive 4+ neighbors dies", function(){
-        var board = Board(10,10);
-        board.initBoard();
-        board.breedCell(1,1);
-        board.breedCell(1,0);
-        board.breedCell(1,2);
-        board.breedCell(0,1);
-        board.breedCell(2,1);
-        board.updateModel();
-        var results = board.board[board.width*1+1].value
-        var answer = 0; 
-        expect(results).to.deep.equal(answer);
-      })
-       it("should breed cell that have exaclty 3 neighbors according to conways rules: test dead cell with 3 neighbors lives", function(){
-        var board = Board(10,10);
-        board.initBoard();
-
-        board.breedCell(1,2);
-        board.breedCell(0,1);
-        board.breedCell(2,1);
-        board.updateModel();
-        var results = board.board[board.width*1+1].value
-        var answer = 1; 
+      it("should return true since each GUID should be 36 character string", function(){
+        var auth = Auth();
+        var results = auth.guid().length;
+        var answer = 36; 
         expect(results).to.deep.equal(answer);
       })
 
@@ -88,54 +41,42 @@
 
 
   });
-  describe("View", function() { 
+  describe("Database", function() { 
 
-    describe("draw", function(){
-      it("should render an empty board to this div", function(){
-        var board = Board(10,10);
-        board.initBoard();
-        board.breedCell(0,0);
-        board.updateModel();
-        var view = View(board,'viewTest');
-        view.draw(board.board);
-        var results = true;
-        var answer = true; 
-        expect(results).to.deep.equal(answer);
-      })
-    });
-    describe("pause", function(){
-      it("should play the game, started from a random starting configuration and pause", function(){
-        var board = Board(100,100);
-        board.initBoard();
-        board.breedCell(0,0);
-        board.updateModel();
-        var view = View(board,'viewTest');
-        view.draw(board.board);
-        view.random();
-        view.play();
-        view.pause();
-        var results = true;
-        var answer = true; 
-        expect(results).to.deep.equal(answer);
-      })
-    })
-    describe("play", function(){
-      it("should play the game from a glider starting configuration", function(){
-        var board = Board(100,100);
-        board.initBoard();
-        board.breedCell(0,0);
-        board.updateModel();
-        var view = View(board,'viewTest');
-        view.draw(board.board);
-        view.drawGliderL();
-        view.play();
-        var results = true;
-        var answer = true; 
-        expect(results).to.deep.equal(answer);
+    describe("addTweet", function(){
 
+      it("should add a tweet to the empty Database", function(){
+        var db = Database(true);
+        var results = db.addTweet('a','a','a');
+        var answer = '{"root":{"tweets":[{"tweetid":"a","tweet":"a","username":"a"}]}}'; 
+        expect(results).to.deep.equal(answer);
       })
+
     });
-    
+    describe("deleteTweet", function(){
+
+      it("should delete a tweet from the  Database", function(){
+          var db = Database(true);
+          db.addTweet('a','a','a');
+          db.addTweet('b','b','b'); 
+          var results = db.deleteTweet('a');
+          var answer = '{"root":{"tweets":[{"tweetid":"b","tweet":"b","username":"b"}]}}'; 
+          expect(results).to.deep.equal(answer);
+        })
+    });
+    describe("getRequest", function(){
+
+      it("fetch the tweet table from the Database", function(){
+          var db = Database(true);
+          db.addTweet('a','a','a');
+          db.addTweet('b','b','b');
+          db.deleteTweet('a'); 
+          var results = db.getRequest('tweets');
+
+          var answer = '{"table":[{"tweetid":"b","tweet":"b","username":"b"}]}'; 
+          expect(results).to.deep.equal(answer);
+        })
+    });
 
   });
   mocha.run();

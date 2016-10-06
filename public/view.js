@@ -1,7 +1,7 @@
 /**
- * Constructs and returns the controller for the game of life board. 
- * This class handles the user inferface and owns the Board and View to prevent rep exposure to client
- * Initiates View and event handlers for UX and appends prerendered HTML to target div
+ * Constructs and returns the view for Frittwe
+ * This class handles the user inferface and renders the tweets in the data base
+ * Initiates on load event handlers for UX and appends prerendered HTML to target div
  * 
  * @param Board - Board class to generate
  * @param View - View class to generate
@@ -10,7 +10,7 @@
  */
 var View = function (){
 
-	var that;
+	var that = Object.create(View.prototype);
 
 	/**
 	   * Renders the current tweets to the board after the data fetching is complete using the client side template available.

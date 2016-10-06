@@ -1,8 +1,8 @@
 /**
- * Maintains a db of tweets
+ * Function library to help in suthentication
  */
 var Auth = function() {
-  var that = Object.create(Database.prototype);
+  var that = Object.create(Auth.prototype);
 
   /**
    * Given a variable being used on this route fetches its value
@@ -22,7 +22,7 @@ var Auth = function() {
    * Generates a unique ID using a family of random hashes overlaps with probability :((1/16)^4)^8
    * @return randomly generated ID 
    */
-  that.guid= function {
+  that.guid= function() {
     function rhash() {
       return Math.floor((1 + Math.random()) * 0x10000)
         .toString(16)
