@@ -1,0 +1,1 @@
+var controller = Controller(Auth, View);
