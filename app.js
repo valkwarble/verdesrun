@@ -1,172 +1,60 @@
-var express = require("express");//express dep
-var bodyParser = require('body-parser');//req parser
-var path = require("path");//path easyness
-var fs = require("fs");
+var express = require('express');
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 
-//var database = require("./database.js");//middle ware
+var routes = require('./routes/index');
 
-var app = express();//make express object
+////////////////////////////////////////////////////////////////
+// Exercise 0:
+// DATABASE SETUP
+
+///////////////////////////////////////////////////////////////
+
+var app = express();
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+
+//app.use(logger('dev'));
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static('public'));//define where files served to user are
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.set('port', (process.env.PORT || 5000));
+app.use('/', routes);
 
-//For avoidong Heroku $PORT error
-app.get('/', function(request, response) {
-    var result = 'App is running'
-    response.send(result);
-}).listen(app.get('port'), function() {
-    console.log('App is running, server is listening on port ', app.get('port'));
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
+// error handlers
 
-var Database = function() {
-  var that = Object.create(Database.prototype);
-
-  // Create private variables.
-  
-
-/**
-   * Add a new tweet to the tweet tree
-   * @param {String} username - user name of the user submitting tweet
-   * @param {String} tweet - text of the message that will be tweeted
-   * @param {String} tweedid - PseudoUniqueID (generate with a large hash function family)
-   *  adds the tweet to the tweets table
-   */
-  that.addTweet = function(username, tweet, tweetid) {
-    var TWEETFILENAME = "./tweets.json";
-    var content;
-    var db;
-    function processFile() {
-      if(((typeof content) != "string")){
-        json_flat = '{"root":{"tweets":[]}}';
-      }else{
-        json_flat = content;
-      }
-      db = JSON.parse(json_flat); //convert to an object
-
-  };
-    // REad the file liek in re$ci@^-1tion
-    fs.readFile(TWEETFILENAME, function read(err, data) {
-        if (err) {
-            throw err;
-        }
-        content = data;
-        //just grab the whole thing and make it an object
-        processFile();          
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.json({
+      'message': err.message,
+      'error': err
     });
-    db['root']['tweets'].unshift({"tweetid":tweetid,"tweet":tweet,"username":username});
-    return JSON.stringify(db);
-  };
+  });
+}
 
-/**
-   * Deletes a tweet with particular id from the tweets table
-   * @param {String} tweetid - PseudoUniqueID of the tweet we want to delete 
-   *  
-   */
-  that.deleteTweet = function(tweetid) {
-
-    var newTweets = db['root']['tweets'].map(function(entry){ return (entry.tweetid == tweetid)? null:entry;}).filter(function(val) { return val !== null; });
-    if (newTweets.length != 0){
-      db['root']['tweets'].splice(0,db['root']['tweets'].length);
-      newTweets.map(function(tweet){db['root']['tweets'].push(tweet)});
-    }
-
-    return JSON.stringify(db);
-  };
-
-  /**
-   * Saves the mappings to the file.
-   * @param {Function} callback - The function to execute after the saving is complete.
-   */
-  that.saveTweet = function(callback) {
-    var TWEETFILENAME = "./tweets.json";
-    var content;
-    var db;
-    function processFile() {
-      if(((typeof content) != "string")){
-        json_flat = '{"root":{"tweets":[]}}';
-      }else{
-        json_flat = content;
-      }
-      db = JSON.parse(json_flat); //convert to an object
-
-  };
-    // REad the file liek in re$ci@^-1tion
-    fs.readFile(TWEETFILENAME, function read(err, data) {
-        if (err) {
-            throw err;
-        }
-        content = data;
-        //just grab the whole thing and make it an object
-        processFile();          
-    });
-    fs.writeFile(TWEETFILENAME, JSON.stringify(db), callback ? callback : function() {});
-  };
-
-  
- /**
-   * get a table spefified by the get request.
-   * @param {String} short - The short name.
-   * @returns {String} The URL or undefined if there is no URL defined for the short name.
-   */
-  that.getRequest = function(getRequest) {
-    var TWEETFILENAME = "./tweets.json";
-    var content;
-    var db;
-    function processFile() {
-      if(((typeof content) != "string")){
-        json_flat = '{"root":{"tweets":[]}}';
-      }else{
-        json_flat = content;
-      }
-      db = JSON.parse(json_flat); //convert to an object
-
-  };
-    // REad the file liek in re$ci@^-1tion
-    fs.readFile(TWEETFILENAME, function read(err, data) {
-        if (err) {
-            json_flat = '{"root":{"tweets":[]}}';
-            db = JSON.parse(json_flat);
-            throw err;
-        }
-        content = data;
-        //just grab the whole thing and make it an object
-        processFile();          
-    });
-    return JSON.stringify({"table":db['root'][getRequest]});
-  };
-  Object.freeze(that);
-  return that;
-};
-
-var database = Database();
-console.log(database);
-
-app.set('views', __dirname + '/views');
-
-app.get('/', function(request, response) {
-  response.render('pages/index');
-});
-//add a new tweet to the database
-app.post("/tweet", function(req, res) {
-  short = database.addTweet(req.body.username.replace(/\+/g, ' '), req.body.tweet, req.body.tweetid);
-  database.saveTweet(function() {
-    res.json({"username": req.body.username.replace(/\+/g, ' '), "tweet": req.body.tweet, "tweetid": req.body.tweetid});
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.json({
+    'error': err.message
   });
 });
 
-//fufill get request for the data base
-app.get("/database", function(req, res) {
-  var getrequest = database.getRequest(req.query.get);
-  res.send(getrequest);
-});
 
-//delete a tweet from the database
-app.post("/delete", function(req, res) {
-  var deleterequest = database.deleteTweet(req.body.tweetid);
-  database.saveTweet(function(){});
-  res.send(deleterequest);
-});
-
-
+module.exports = app;

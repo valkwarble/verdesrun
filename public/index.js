@@ -38,5 +38,5 @@ $(document).on("click", "#login", function() {
 	validatelogin($("#username").val());
 });
 $(document).ready(function(){
-	//renderTweets();  
+	 
 });

@@ -24,9 +24,12 @@ function validatelogin(username){
 		 var url = window.location.href;
 		 var clear = url.substring(0,url.lastIndexOf('/') + 1);
 		if(username.length == 0){
+      $("#usernameinput")[0].innerHTML = "Authentication Failed";
 			alert("invalid username ")
 		}
-		else{}
+		else{
+			$("#usernameinput")[0].innerHTML = "Authentication Successful";
+		}
 	}
 	catch(e){
 
@@ -34,43 +37,3 @@ function validatelogin(username){
 	
 }
 
-$(document).on("click", "#login", function() {
-	validatelogin($("#username").val());
-});
-
-$(document).on("click", "#displayTweets", function() {
-	renderTweets();
-});
-
-$(document).on("click", "#createTweet", function() {
-	var username = getQueryVariable("username");
-	if(username== false){
-		alert('please log in')
-		return;
-	}
-	else if( $("#tweet").val().length ==0 ){
-		alert('empty field warning, please write something')
-		return;
-	}
-	else{
-		$.post("/tweet", {
-		    "username": username, 
-		    "tweet": $("#tweet").val(),
-		    "tweetid": guid()
-		  }, function(data) {
-		  	renderTweets();  
-		 
-		});	
-	}
-	
-});
-
-$(document).on("click", ".delete", function() {
-	
-	$.post("/delete", {
-		    "tweetid": $(this).attr('id')
-		  }, function(data) {
-		  	renderTweets();  
-		 
-		});	
-});

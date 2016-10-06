@@ -1,89 +1,53 @@
-Using Mocha
-==========
-
-Check out the [Mocha documentation](https://mochajs.org/) for more info.
-
-Step 1 - Install Mocha Command Line Tool
----------------
-Install the Mocha command line tool globally.
-
-`npm install -g mocha`
-
-You may need to run this command with higher permissions if it gives you an error. On Linux/MacOS,
-that would be:
-
-`sudo npm install -g mocha`
-
-See [here](http://www.howtogeek.com/howto/windows-vista/run-a-command-as-administrator-from-the-windows-vista-run-box/) for how to run command as administrator on Windows
-
-Step 2 - Create a Test Directory and File
---------------
-Create a directory called `test` - all your tests will go in here.
-
-Inside that directory, let's make a sample file, call it `test.js`.
-
-Step 3 - Write a Test
---------------
-Put the following code inside `test.js`.
+# Usage
+Make sure you've installed Node.js and NPM. Install the Handlebars compiler with
 
 ```
-var assert = require("assert");
-
-// Array is the module under test.
-describe('Array', function() {
-  // indexOf is the method under test.
-  describe('#indexOf()', function () {
-    
-    // This is a test, we indicate what we're testing for.
-    it('should return -1 when the value is not present', function () {
-      assert.equal(-1, [1,2,3].indexOf(5));
-      assert.equal(-1, [1,2,3].indexOf(0));
-    });
-
-
-    // Another test.
-    it('should find values that exist', function() {
-      assert.equal(0, [1, 2, 3].indexOf(1));
-      assert.equal(2, [1, 2, 3].indexOf(3));
-    });
-
-  }); // End describe indexOf.
-
-  // map is the method under test.
-  describe('#map', function() {
-    
-    // This is a test.
-    it('should map values given a function', function() {
-      assert.deepEqual([2, 4, 6], [1, 2, 3].map(function(x) { return 2 * x; }));
-    });
-
-
-    // Another test.
-    it('should work on empty arrays', function() {
-      assert.deepEqual([], [].map(function(x) { return 2 * x; }));
-    });
-
-  }); // End describe map.
-
-}); // End describe Array.
+sudo npm install -g handlebars
 ```
-Step 4 - Run the Tests
------------
-Navigate to the `test` directory in the command line and run
 
-`mocha`
+If you are on Windows, run the `npm install -g handlebars` command instead in a 
+command prompt that you are running as administrator.
 
-You should see a result like this:
+Make sure you've installed [MongoDB](https://www.mongodb.com/download-center?jmp=nav#community).
+
+Here are the [Windows](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/),
+[Linux](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-linux/),
+and [OS X](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/) installation instructions.
+Once you've installed MongoDB, launch the ModelDB Server (`mongod`).
+
+Open another terminal window and navigate to the directory containing this repo's code.
+Then, install the app dependencies with
 
 ```
-  Array
-    #indexOf()
-      ✓ should return -1 when the value is not present
-      ✓ should find values that exist
-    #map
-      ✓ should map values given a function
-      ✓ should work on empty arrays
-
-
-  4 passing (11ms)
+npm install
 ```
+
+To start the app, run
+
+```
+npm start
+```
+
+Finally, navigate your browser to [`http://localhost:3000`](http://localhost:3000).
+
+# Handlebars
+
+We'll be using the [Handlebars](http://handlebarsjs.com/) templating libary to
+avoid putting HTML code in our JavaScript. Handlebars is very similar to Mustache,
+which is another templating library. Here's how we'll use Handlebars. We define
+templates in the `templates/` directory that contain HTML with slots for data
+(e.g. `{{something}}`). We will compile these templates (see `package.json`) using the Handlebars
+compiler and we'll put the compiled templates into `public/js/templates.js`. Then,
+we will include this `templates.js` file in our client side code. Then, when we
+want to generate the HTML, we will do the following:
+
+```
+var html = Handlebars.templates['template_name'](data_needed_for_template);
+```
+
+We can then add the generated HTML to the DOM. Notice that this keeps HTML code in
+the templates rather than putting it into the JavaScript files. Further observe
+that the HTML code is being generated on the client side. It's also possible to
+templating on the server side. The disadvantage with server side templating is that
+the server has to serve HTML to the client, rather than just serving JSON data,
+which is easier to debug, more performant, and allows other apps to use the server.

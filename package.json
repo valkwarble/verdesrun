@@ -1,18 +1,22 @@
 {
-  "name": "Fritter",
-  "version": "1.0.0",
-  "engines": {
-    "node": "5.9.1"
+  "name": "mongo_recitation",
+  "version": "0.0.0",
+  "private": true,
+   "engines": {
+    "node": "4.1.1",
+     "npm": "2.14.4"
   },
-  "main": "app.js",
-  "scripts": {
-    "start": "node app.js"
+  "scripts": { 
+    "start" :  "echo {'root':{'tweets':[]}} > ./models/tweets.json  && node .bin/www" 
   },
   "dependencies": {
-    "body-parser": "^1.15.2",
-    "chance": "^1.0.4",
-    "express": "^4.14.0",
-    "express-session": "^1.14.1",
-    "hashmap": "^2.0.6"
+    "body-parser": "~1.15.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.2.0",
+    "express": "~4.13.4",
+    "hbs": "~4.0.0",
+    "morgan": "~1.7.0",
+    "serve-favicon": "~2.3.0",
+    "mongoose": "^4.1.9"
   }
 }
