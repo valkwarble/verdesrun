@@ -3,9 +3,7 @@
  * This class handles the user inferface and renders the tweets in the data base
  * Initiates on load event handlers for UX and appends prerendered HTML to target div
  * 
- * @param Board - Board class to generate
- * @param View - View class to generate
- * @returns- Controller object
+ * @returns- View object
  * @constructor
  */
 var View = function (){
