@@ -2,7 +2,7 @@
 Build your own not-quite-Twitter using Node.js, Express, &amp; MongoDB.
 
 ## Backend
-puclic folder has been minified please see /fron/src for unminified files
+puclic folder has been minified please see /front/src for unminified files
 
 
 ## Frontend
