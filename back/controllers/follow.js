@@ -1,6 +1,20 @@
 var User = require('../models/users');
 var mongoose = require('mongoose');
+/**
+ * Constructs and returns the controller for the follow API
+ * 
+ * @returns- Follow Controller object
+ * @constructor
+ */
 module.exports = {
+	/**
+	 * Handle Post response
+	 * 
+	 * @param req - http request data passed by client
+	 * @param res - http response data passed to client
+	 * @returns- 200 response if ok 304 response if invalid
+	 * @constructor
+	 */
 	post: function(req, res){
 		var that = req;
 

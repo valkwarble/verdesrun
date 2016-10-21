@@ -1,7 +1,21 @@
 var User = require('../models/users');
 var Token = require('jwt-simple');
 var moment = require('moment');
+/**
+ * Constructs and returns the controller for the register API
+ * used register new users in User table
+ * @returns- FollowerMessages Controller object
+ * @constructor
+ */
 module.exports = {
+	/**
+	 * Handle Post response for register api 
+	 * generate new user if no conflict exists
+	 * @param req - http request data passed by client including username and desired password
+	 * @param res - http response data passed to client
+	 * @returns- 200 response & auth token if ok or error object if invalid
+	 * @constructor
+	 */
 	post: function(req, res){
 		User.findOne({username:req.body.username}, function(err, validUser){
 			
@@ -25,9 +39,14 @@ module.exports = {
 		
 	}
 }
-
+/**
+ * Generate token from valid user
+ * 
+ * @param user - valid user to generate token for
+ * @returns- user token with credentials and expiration
+ * @constructor
+ */
 function token (user){
-
 	var payload = {
 		uid: user._id,
 		name: user.username,
@@ -35,5 +54,6 @@ function token (user){
 		exp: moment().add(14,'days').unix()
 	}
 	//return Token.encode(payload,'password');
+	//going old skool cookies instead of JWT token (so unsafe)
 	return payload;
 }

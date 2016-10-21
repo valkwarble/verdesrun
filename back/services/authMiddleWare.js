@@ -1,5 +1,20 @@
+/**
+ * Constructs and returns middleware for routes
+ * used to verify user is loged in on client side
+ * @returns- middelware object
+ * @constructor
+ */
 module.exports = {
-	checkAuthenticated : function (req,res,next){
+	/**
+	 * Check if the user is authenticated
+	 * 
+	 * @param req - http request data passed by client
+	 * @param res - http response data passed to client
+	 * @param next - run next function as to not block
+
+	 * @returns- auth token if loged in 400 response and error message otherwise
+	 * @constructor
+	 */	checkAuthenticated : function (req,res,next){
 		
 		try{
 			var re = /\s*;\s*/;

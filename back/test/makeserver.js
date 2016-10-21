@@ -1,3 +1,7 @@
+/**
+ * Creates a new server and returns it
+ */
+
 var makeserver = function() {
 
 /**

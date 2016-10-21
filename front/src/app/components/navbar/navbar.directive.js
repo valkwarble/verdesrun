@@ -1,3 +1,8 @@
+/**
+ * Constructs and returns Navbar Directive
+ * used to set up controller for nav view
+ * @returns- Navbar Directive
+ */
 export function NavbarDirective() {
   'ngInject';
 
@@ -5,7 +10,7 @@ export function NavbarDirective() {
     restrict: 'E',
     templateUrl: 'app/components/navbar/navbar.html',
     scope: {
-        creationDate: '='
+        
     },
     controller: NavbarController,
     controllerAs: 'vm',
@@ -15,17 +20,26 @@ export function NavbarDirective() {
   return directive;
 }
 
+/**
+ * Constructs and returns Navbar Controller class
+ * used to control logout button visibility 
+ * @returns- Navbar Controller object
+ */
 class NavbarController {
   constructor (moment, $cookies, $window) {
     'ngInject';
     this.$cookies =$cookies;
     this.$window = $window;
-    // "this.creationDate" is available by directive option "bindToController: true"
-    //this.relativeDate = moment(this.creationDate).fromNow();
   }
+  /**
+   * hide logout if user is not logged in 
+   */
   hidelogout(){  
     return this.$cookies.get('username');       
   }
+  /**
+   * logout user and redirect to auth page
+   */
   logout(){  
      this.$cookies.remove('username');       
      this.$cookies.remove('authtoken');  

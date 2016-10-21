@@ -1,5 +1,5 @@
 var request = require('supertest');
-describe('Test API Calls and Controllers', function () {
+describe('Test Backend functions and Controllers using super test api', function () {
   var server;
   beforeEach(function () {
     server = require('./makeserver')();

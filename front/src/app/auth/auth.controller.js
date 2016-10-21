@@ -1,3 +1,9 @@
+/**
+ * Constructs and returns Auth COntroller class
+ * used to send ajax requests to register and login apis
+ * @returns- FollowerMessages Controller object
+ * @constructor
+ */
 export class AuthController {
 	constructor($scope, $cookies, $http, $window){
 		'ngInject';
@@ -7,6 +13,11 @@ export class AuthController {
 		this.$http = $http;
 		this.$window = $window;
 	}
+	/**
+	 * Register a new user using the register api
+	 * save user credentials in cookie on sucess and redirect to tweets
+	 * send error message on failure triggering alert
+	 */
 	register(){
 		var that = this;
 		$.post("/api/register", 
@@ -29,6 +40,11 @@ export class AuthController {
 			}   
 		});
 	}
+	/**
+	 * login existing user using the login api
+	 * save user credentials in cookie on sucess and redirect to tweets
+	 * send error message on failure triggering view render
+	 */
 	login(){
 		var that = this;
 
@@ -55,5 +71,3 @@ export class AuthController {
 	}
 }
 
-// Retrieving a cookie
-  // Setting a cookie

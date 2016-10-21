@@ -37,7 +37,7 @@ var jsdom = require("jsdom");
       beforeEach(function (done) {
       })
       it('should return a user', function testPath(done) {
-          assert.equal(mainController.deletecheck(), 0);
+          assert.equal(mainController.deletecheck(), null);
         });
       
     });
