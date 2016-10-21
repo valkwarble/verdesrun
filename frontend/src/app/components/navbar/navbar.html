@@ -1,0 +1,34 @@
+
+
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header">
+    
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title mdl-badge" data-badge="♥">Fritter</span>
+      <!-- Add spacer, to align navigation to the right -->
+      <nav class="mdl-navigation mdl-layout--large-screen-only">
+        <a class="mdl-navigation__link" ng-href="#/auth">Login/Register</a>
+        <a class="mdl-navigation__link" href="#">All Tweets</a>
+        <a class="mdl-navigation__link" href="#/follows">Followed Twitters</a>
+        <a ng-show="vm.hidelogout()"  ng-click="vm.logout()" class="mdl-navigation__link" href="#/follows">Logout</a>
+      </nav>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation. We hide it in small screens. -->
+
+    </div>
+
+  </header>
+
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Menu</span>
+    <nav class="mdl-navigation">
+
+        <a class="mdl-navigation__link" ng-href="#/auth">Login</a>
+        <a class="mdl-navigation__link" href="#">All Tweets</a>
+        <a class="mdl-navigation__link" href="#/follows">Followed Twitters</a>
+        <a ng-show="vm.hidelogout()"  ng-click="vm.logout()" class="mdl-navigation__link" href="#/follows">Logout</a>
+    </nav>
+  </div>
+</div>
