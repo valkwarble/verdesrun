@@ -3,6 +3,7 @@ Build your own not-quite-Twitter using Node.js, Express, &amp; MongoDB.
 
 ## Backend
 public folder contains minified frontend files please see /front/src for unminified files
+start up at bin/www or makeserver function
 
 
 ## Frontend
