@@ -2,11 +2,11 @@
 Build your own not-quite-Twitter using Node.js, Express, &amp; MongoDB.
 
 ## Backend
-puclic folder has been minified please see /front/src for unminified files
+public folder contains minified frontend files please see /front/src for unminified files
 
 
 ## Frontend
-minify and run tests with Gulp, to generate minified puclic folder please see /back/public for minified files
+minify and run tests with Gulp, to generate minified public folder to serve on backend please see /back/public for minified files
 
 ##Diagrams
 attached in repo a PDF containing data model and dependancy graph.
